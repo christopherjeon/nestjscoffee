@@ -7,4 +7,23 @@ services:
     ports:
       - "5432:5432"
     environment:
-       POSTGRES_PASSWORD: pass123
+      POSTGRES_PASSWORD: pass123
+    networks:
+      - app-tier
+
+  pgadmin4:
+    image: 'dpage/pgadmin4:latest'
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "cjeon97@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456"
+    networks:
+      - app-tier
+
+networks:
+  app-tier:
+      driver: bridge
